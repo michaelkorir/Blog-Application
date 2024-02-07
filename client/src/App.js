@@ -1,5 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from "react";
+import Header from "./Header";
+import Search from "./Search";
 
 function App() {
   return (
