@@ -83,6 +83,34 @@ const Users = () => {
     }
   };
 
+  const handleEditUsername = async () => {
+    try {
+      const response = await fetch(`/users/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update username');
+      }
+      // Update the username in the users state
+      setUsers(prevUsers => prevUsers.map(user => {
+        if (user.id === userId) {
+          return { ...user, name: username };
+        }
+        return user;
+      }));
+      // Clear input fields
+      setUserId('');
+      setUsername('');
+      setSelectedUser(null);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <Container>
       <Row className="justify-content-center">
@@ -116,6 +144,21 @@ const Users = () => {
           <Button variant="danger" onClick={handleDeleteUserById}>
             Delete User by ID
           </Button>
+          {selectedUser && (
+            <Form onSubmit={handleEditUsername} className="mt-2">
+              <Form.Group controlId="editName">
+                <Form.Label>Edit Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={username}
+                  onChange={event => setUsername(event.target.value)}
+                />
+              </Form.Group>
+              <Button variant="warning" type="submit">
+                Edit Username
+              </Button>
+            </Form>
+          )}
         </Col>
       </Row>
       {selectedUser && (
