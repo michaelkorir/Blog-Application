@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Card, Button, Container, Row, Col, Table } from 'react-bootstrap';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -180,16 +180,22 @@ const Users = () => {
         ) : error ? (
           <p>{error}</p>
         ) : (
-          users.map(user => (
-            <Col key={user.id} md={4}>
-              <Card className="m-2">
-                <Card.Body>
-                  <Card.Title>{user.id}</Card.Title>
-                  <Card.Text>{user.name}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         )}
       </Row>
     </Container>
