@@ -1,3 +1,4 @@
+import os
 from http.client import BAD_REQUEST
 from flask import Flask, make_response, request, jsonify, abort
 from flask_migrate import Migrate
@@ -7,8 +8,9 @@ from werkzeug.exceptions import NotFound
 from models import db, User, Blog, Comment
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+# postgresql://blog_3dxg_user:rxWCNeYDLIzzSxF4qp1Pr7g6Jt2oRnDG@dpg-cn55f4a1hbls7390qurg-a.oregon-postgres.render.com/blog_3dxg
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 migrate = Migrate(app, db)
 
