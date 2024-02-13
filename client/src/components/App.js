@@ -13,7 +13,7 @@ function App() {
     <Router>
       <NavBar />
       <Switch>
-        <Route path="/home" component={Home} />
+        <Route path="/" component={Home} />
         <Route path="/users" component={Users} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/comments" component={Comments} />
