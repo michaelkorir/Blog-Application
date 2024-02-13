@@ -33,9 +33,9 @@ api= Api(app)
 def handle_not_found(e):
     return render_template('index.html', title='Homepage', message='Welcome to our website!')
 
-@app.route('/')
-def home():
-    return "<h1>Welcome to Blog spot Application</h1>"
+# @app.route('/')
+# def home():
+#     return "<h1>Welcome to Blog spot Application</h1>"
 
 class UsersList(Resource):
     def get(self):
