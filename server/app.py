@@ -1,16 +1,26 @@
 import os
 from http.client import BAD_REQUEST
-from flask import Flask, make_response, request, jsonify, abort
+from flask import Flask, make_response, request, jsonify, abort, render_template
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from werkzeug.exceptions import NotFound
 
-from models import db, User, Blog, Comment
 
-app = Flask(__name__)
+from models import db, User, Blog, Comment
+from dotenv import load_dotenv
+load_dotenv()
+
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='../client/build',
+    template_folder='../client/build'
+    )
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 # postgresql://blog_3dxg_user:rxWCNeYDLIzzSxF4qp1Pr7g6Jt2oRnDG@dpg-cn55f4a1hbls7390qurg-a.oregon-postgres.render.com/blog_3dxg
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 
 migrate = Migrate(app, db)
 
@@ -21,8 +31,7 @@ api= Api(app)
 
 @app.errorhandler(NotFound)
 def handle_not_found(e):
-    response= make_response("NotFound: The requested resource not found", 404)
-    return response
+    return render_template('index.html', title='Homepage', message='Welcome to our website!')
 
 @app.route('/')
 def home():
