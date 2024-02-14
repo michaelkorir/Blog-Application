@@ -16,7 +16,7 @@ Responsive design using Bootstrap
 ## Installation
 
 ### Backend (Flask)
-Navigate to the backend directory: cd server.
+Navigate to the backend directory: cd server. .
 
 Create a virtual environment: ```python3 -m venv venv.```
 
